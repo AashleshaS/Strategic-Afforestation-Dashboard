@@ -22,18 +22,18 @@ By fusing high-resolution satellite imagery with population density data, this t
 
 The project is split into two primary Google Earth Engine scripts to optimize performance:
 
-### `Script_1_Data_Cruncher.js` (The ETL Pipeline)
+### ` THE DATA CRUNCHER.js` (The ETL Pipeline)
 A heavy-duty processing script that defines the Area of Interest (AOI), acquires satellite imagery for the Summer 2025 temporal window, and normalizes the criteria into 0-to-1 scores. It generates a comprehensive suitability mask and exports the massively computed 4-band image as a dedicated GEE Asset.
 
-### `Script_2_Interactive_DSS.js` (The Dashboard)
+### ` THE INTERACTIVE DSS.js` (The Dashboard)
 The frontend user interface. It loads the pre-computed asset from Script 1 and the administrative shapefiles. It constructs the split-screen UI, powers the interactive MCDA slider math, applies the custom weights, and renders the clickable District Budget Priority chart.
 
 ## 🚀 How to Run
 
 1. Open the [Google Earth Engine Code Editor](https://code.earthengine.google.com/).
 2. **Upload Shapefile:** Upload a zipped shapefile of the Maharashtra Sub-Districts to your GEE Assets.
-3. **Run Script 1:** Paste the code from `Script_1_Data_Cruncher.js`. Run it, go to the "Tasks" tab, and execute the export. Wait for the asset to generate.
-4. **Update Asset Paths:** Open `Script_2_Interactive_DSS.js` and update Lines 9 and 12 with your specific GEE Asset IDs for the exported data and the uploaded shapefile.
+3. **Run Script 1:** Paste the code from `THE DATA CRUNCHER.js`. Run it, go to the "Tasks" tab, and execute the export. Wait for the asset to generate.
+4. **Update Asset Paths:** Open `THE INTERACTIVE DSS.js` and update Lines 9 and 12 with your specific GEE Asset IDs for the exported data and the uploaded shapefile.
 5. **Run Script 2:** Hit Run. Use the sliders in the bottom right to calculate the priority map, and click on the generated bar chart to explore the Tehsils!
 
 ## 💡 Key Data Insight
