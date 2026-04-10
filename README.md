@@ -1,4 +1,4 @@
-# 🌳 Smart City Doctor: Strategic Afforestation DSS
+# 🌳 Strategic Afforestation DSS
 
 An interactive Decision Support System (DSS) built on Google Earth Engine (GEE) to combat urban heat islands and rural heat exposure in the Nagpur District. 
 
