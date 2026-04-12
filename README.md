@@ -42,14 +42,14 @@ During testing for the Vidarbha summer, the data revealed a critical "Rural Heat
 ```mermaid
 graph TD
     subgraph "Tier 1: Backend (Data Cruncher ETL)"
-        A[Raw Data Ingestion<br/>(Imagery, Buildings, Population)] --> B[ETL Processing & Masking]
-        B --> C[(GEE Asset:<br/>Pre-computed Image)]
+        A["Raw Data Ingestion<br/>(Imagery, Buildings, Population)"] --> B["ETL Processing & Masking"]
+        B --> C[("GEE Asset:<br/>Pre-computed Image")]
     end
 
     subgraph "Tier 2: Frontend (Interactive DSS)"
-        D[Dashboard & User Inputs] -.-> C %% Represents UI loading asset
-        C --> E[Interactive MCDA Engine]
-        E --> F[Priority Mapping &<br/>Policy Chart]
+        D["Dashboard & User Inputs"] -.-> C
+        C --> E["Interactive MCDA Engine"]
+        E --> F["Priority Mapping &<br/>Policy Chart"]
     end
 
     %% Visual styling for the paper screenshot
