@@ -41,25 +41,26 @@ During testing for the Vidarbha summer, the data revealed a critical "Rural Heat
 
 ```mermaid
 graph LR
-    subgraph "Backend: The Data Cruncher"
-        A["Defining the Area of Interest"] --> B["Data Acquisition<br/>(LST, NDVI, Population)"]
-        B --> C["Data Normalization"]
-        C --> D["Sustainability Mask Generation"]
+    subgraph Backend ["Backend: The Data Cruncher"]
+        direction TB
+        A1["Defining the Area of Interest"] --> A2["Data Acquisition<br/>(LST, NDVI, Population)"]
+        A2 --> A3["Data Normalization"]
+        A3 --> A4["Sustainability Mask Generation"]
     end
 
-    D --> E[("GEE Asset:<br/>Stacked Criteria & Mask")]
+    %% Export to Asset
+    A4 --> Asset
 
-    E --> F["Interactive Weight Sliders"]
-    E --> G["MCDA<br/>(Auto-Normalized Weight Overlays)"]
+    Asset[("GEE Assets<br/>(Stacked Criteria & Mask)")]
 
-    subgraph "Frontend: Interactive DSS"
-        F --> G
-        G --> H["Priority Map"]
-        H --> I["Administrative Zone Score"]
-        I --> J["Policy Analytics Score"]
+    subgraph Frontend ["Frontend: Interactive DSS"]
+        direction TB
+        F1["Interactive Weight Sliders"] --> F2["MCDA<br/>(Auto-Normalization Weight Overlays)"]
+        F2 --> F3["Priority Map"]
+        F3 --> F4["Administrative Zone Score"]
+        F4 --> F5["Policy Analytics Score"]
     end
 
-    %% Visual Styling
-    style E fill:#ffffff,stroke:#333,stroke-width:2px
-    style G fill:#bbf,stroke:#333
+    %% Direct connection to MCDA
+    Asset --> F2
 ```
