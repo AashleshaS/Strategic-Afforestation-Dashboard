@@ -41,25 +41,24 @@ During testing for the Vidarbha summer, the data revealed a critical "Rural Heat
 
 ```mermaid
 graph TD
-    subgraph "Tier 1: Backend (Data Cruncher ETL)"
-        A1["Raw Data Ingestion<br/>(LST, NDVI, Pop, LULC, Buildings)"] --> B1["Preprocessing & Masking<br/>(Cloud Filters & Thermal Scaling)"]
-        B1 --> C1["Normalization & Standardization<br/>(5th-95th Percentile Clamping)"]
-        C1 --> D1["Suitability Mask Fusion<br/>(Ground Space OR Roof Space)"]
-        D1 --> E1[("GEE Asset:<br/>Stacked Criteria & Mask")]
+    subgraph "Backend: The Data Cruncher"
+        A["Defining the Area of Interest"] --> B["Data Acquisition<br/>(LST, NDVI, Population)"]
+        B --> C["Data Normalization"]
+        C --> D["Sustainability Mask Generation"]
     end
 
-    subgraph "Tier 2: Frontend (Interactive DSS)"
-        E1 --> F1["Dashboard UI<br/>(Interactive Weight Sliders)"]
-        F1 --> G1["Dynamic MCDA Engine<br/>(Auto-Normalized Weighted Overlay)"]
-        G1 --> H1["Administrative Zonal Statistics<br/>(reduceRegions & Area Conversion)"]
-        H1 --> I1["Policy Analytics<br/>(Ranked Tehsil Priority Chart)"]
+    D --> E[("GEE Asset:<br/>Stacked Criteria & Mask")]
+
+    subgraph "Frontend: Interactive DSS"
+        E --> F["Dashboard UI<br/>(Interactive Weight Sliders)"]
+        F --> G["Dynamic MCDA Engine<br/>(Auto-Normalized Weighted Overlay)"]
+        G --> H["Administrative Zonal Statistics<br/>(reduceRegions & Area Conversion)"]
+        H --> I["Policy Analytics<br/>(Ranked Tehsil Priority Chart)"]
+        
+        %% Bi-directional Navigation Link
+        I -.->|"Bi-directional Navigation"| F
     end
 
-    %% Connectivity
-    I1 -.->|Bi-directional Navigation| F1
-
-    %% Visual Styling
-    style E1 fill:#f9f,stroke:#333,stroke-width:2px
-    style G1 fill:#bbf,stroke:#333
-    style I1 fill:#dfd,stroke:#333
+    %% Visual styling for the bridge asset
+    style E fill:#ffffff,stroke:#333,stroke-width:2px
 ```
