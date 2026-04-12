@@ -40,7 +40,7 @@ The frontend user interface. It loads the pre-computed asset from Script 1 and t
 During testing for the Vidarbha summer, the data revealed a critical "Rural Heat Exposure" spike. While urban centers are assumed to be the primary targets for afforestation, the DSS proves that massive, exposed rural tehsils (like Katol and Hingna) contain significantly larger absolute areas of critical heat risk. This tool helps District Collectors allocate saplings proportionally to mitigate regional heatwaves, not just city-center temperatures.
 
 ```mermaid
-graph TD
+graph LR
     subgraph "Backend: The Data Cruncher"
         A["Defining the Area of Interest"] --> B["Data Acquisition<br/>(LST, NDVI, Population)"]
         B --> C["Data Normalization"]
@@ -49,16 +49,17 @@ graph TD
 
     D --> E[("GEE Asset:<br/>Stacked Criteria & Mask")]
 
+    E --> F["Interactive Weight Sliders"]
+    E --> G["MCDA<br/>(Auto-Normalized Weight Overlays)"]
+
     subgraph "Frontend: Interactive DSS"
-        E --> F["Dashboard UI<br/>(Interactive Weight Sliders)"]
-        F --> G["Dynamic MCDA Engine<br/>(Auto-Normalized Weighted Overlay)"]
-        G --> H["Administrative Zonal Statistics<br/>(reduceRegions & Area Conversion)"]
-        H --> I["Policy Analytics<br/>(Ranked Tehsil Priority Chart)"]
-        
-        %% Bi-directional Navigation Link
-        I -.->|"Bi-directional Navigation"| F
+        F --> G
+        G --> H["Priority Map"]
+        H --> I["Administrative Zone Score"]
+        I --> J["Policy Analytics Score"]
     end
 
-    %% Visual styling for the bridge asset
+    %% Visual Styling
     style E fill:#ffffff,stroke:#333,stroke-width:2px
+    style G fill:#bbf,stroke:#333
 ```
