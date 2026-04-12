@@ -42,17 +42,24 @@ During testing for the Vidarbha summer, the data revealed a critical "Rural Heat
 ```mermaid
 graph TD
     subgraph "Tier 1: Backend (Data Cruncher ETL)"
-        A["Raw Data Ingestion<br/>(Imagery, Buildings, Population)"] --> B["ETL Processing & Masking"]
-        B --> C[("GEE Asset:<br/>Pre-computed Image")]
+        A1["Raw Data Ingestion<br/>(LST, NDVI, Pop, LULC, Buildings)"] --> B1["Preprocessing & Masking<br/>(Cloud Filters & Thermal Scaling)"]
+        B1 --> C1["Normalization & Standardization<br/>(5th-95th Percentile Clamping)"]
+        C1 --> D1["Suitability Mask Fusion<br/>(Ground Space OR Roof Space)"]
+        D1 --> E1[("GEE Asset:<br/>Stacked Criteria & Mask")]
     end
 
     subgraph "Tier 2: Frontend (Interactive DSS)"
-        D["Dashboard & User Inputs"] -.-> C
-        C --> E["Interactive MCDA Engine"]
-        E --> F["Priority Mapping &<br/>Policy Chart"]
+        E1 --> F1["Dashboard UI<br/>(Interactive Weight Sliders)"]
+        F1 --> G1["Dynamic MCDA Engine<br/>(Auto-Normalized Weighted Overlay)"]
+        G1 --> H1["Administrative Zonal Statistics<br/>(reduceRegions & Area Conversion)"]
+        H1 --> I1["Policy Analytics<br/>(Ranked Tehsil Priority Chart)"]
     end
 
-    %% Visual styling for the paper screenshot
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style E fill:#bbf,stroke:#333
+    %% Connectivity
+    I1 -.->|Bi-directional Navigation| F1
+
+    %% Visual Styling
+    style E1 fill:#f9f,stroke:#333,stroke-width:2px
+    style G1 fill:#bbf,stroke:#333
+    style I1 fill:#dfd,stroke:#333
 ```
