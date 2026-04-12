@@ -38,3 +38,32 @@ The frontend user interface. It loads the pre-computed asset from Script 1 and t
 
 ## 💡 Key Data Insight
 During testing for the Vidarbha summer, the data revealed a critical "Rural Heat Exposure" spike. While urban centers are assumed to be the primary targets for afforestation, the DSS proves that massive, exposed rural tehsils (like Katol and Hingna) contain significantly larger absolute areas of critical heat risk. This tool helps District Collectors allocate saplings proportionally to mitigate regional heatwaves, not just city-center temperatures.
+
+graph TD
+    subgraph "Tier 1: Backend (Data Cruncher ETL)"
+        A1[FAO GAUL: Nagpur AOI] --> B1[Data Acquisition]
+        B2[Landsat 9: LST] --> B1
+        B3[Sentinel-2: NDVI] --> B1
+        B4[WorldPop: Population] --> B1
+        B5[ESA WorldCover: Ground Space] --> B1
+        B6[Google Open Buildings: Roof Space] --> B1
+        
+        B1 --> C1[Preprocessing & Masking]
+        C1 --> D1[Normalization: 5th-95th Percentile]
+        D1 --> E1[Suitability Mask Generation]
+        E1 --> F1[(GEE Asset: Pre-computed Multiband Image)]
+    end
+
+    subgraph "Tier 2: Frontend (Interactive DSS)"
+        F1 --> G1[Dashboard Interface]
+        G1 --> H1[Interactive MCDA Engine]
+        I1[User Weights: Sliders] --> H1
+        H1 --> J1[Auto-Normalization Logic]
+        J1 --> K1[Weighted Map Algebra]
+        K1 --> L1[Priority Map Visualization]
+        L1 --> M1[Zonal Statistics: reduceRegions]
+        M1 --> N1[Ranked Policy Chart]
+    end
+
+    style F1 fill:#f9f,stroke:#333,stroke-width:4px
+    style J1 fill:#bbf,stroke:#333
